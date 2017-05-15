@@ -2,11 +2,19 @@
 
 namespace Task2
 {
-
-	class Flugzeug
+	
+	interface Fortbewegungsmittel
 	{
-		private int m_sitzplaetze;
-		private int m_fluegel;
+		void SichFortbewegen(int treibstoff);
+
+		string Beschreibung { get; }
+	}
+
+	class Flugzeug : Fortbewegungsmittel
+	{
+		private int sitzplaetze;
+		private int fluegel;
+		private string beschreibung;
 
 		public Flugzeug(int newFluegel, int newSitzplaetze)
 		{
@@ -14,21 +22,38 @@ namespace Task2
 			this.Fluegel = newFluegel;
 		}
 
+		public void SichFortbewegen(int treibstoff)
+		{
+			Console.WriteLine ("Das Flugzeug fliegt " + treibstoff * 1 + " Kilometer.");
+		}
+
+		public string Beschreibung
+		{
+			get
+			{
+				return beschreibung;
+			}
+			set
+			{
+				beschreibung = value;
+			}
+		}
+
 		public int SitzplaetzeMinusTwo()
 		{
-			return m_sitzplaetze * 2;
+			return sitzplaetze * 2;
 		}
 
 		public int Fluegel
 		{
 			get
 			{
-				return m_fluegel;
+				return fluegel;
 			}
 			set
 			{
 				if (value < 2) throw new Exception("Mindestens zwei Flügel angeben.");
-				m_fluegel = value;
+				fluegel = value;
 			}
 		}
 
@@ -36,21 +61,54 @@ namespace Task2
 		{
 			get
 			{
-				return m_sitzplaetze;
+				return sitzplaetze;
 			}
 			set
 			{
 				if (value < 2) throw new Exception("Mindestens zwei Sitzplätze angeben.");
-				m_sitzplaetze = value;
+				sitzplaetze = value;
 			}
 		}
 	}
+
+	class Auto : Fortbewegungsmittel
+	{
+		private string beschreibung;
+
+		public void SichFortbewegen(int treibstoff)
+		{
+			Console.WriteLine ("Das Auto fährt " + treibstoff * 100 + " Kilometer.");
+		}
+
+		public string Beschreibung
+		{
+			get
+			{
+				return beschreibung;
+			}
+			set
+			{
+				beschreibung = value;
+			}
+		}
+	}
+
 	class MainClass
 	{
 		public static void Main (string[] args)
 		{
-			Flugzeug a = new Flugzeug (2, 134);
-			Console.WriteLine (a.SitzplaetzeMinusTwo());
+			var fortbewegungsmittel = new Fortbewegungsmittel[]
+			{
+				new Flugzeug(2, 134),
+				new Flugzeug(4, 543),
+				new Auto(),
+				new Auto(),
+			};
+
+			foreach (var x in fortbewegungsmittel)
+			{
+				x.SichFortbewegen(2);
+			}
 		}
 	}
 }
