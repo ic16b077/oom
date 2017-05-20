@@ -45,8 +45,8 @@
     <Compile Include="Zigarettenautomat.cs" />
     <Compile Include="Produkt.cs" />
     <Compile Include="Inventar.cs" />
-    <Compile Include="Essensautomat.cs" />
     <Compile Include="ZigarettenautomatTests.cs" />
+    <Compile Include="Fahrscheinautomat.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
