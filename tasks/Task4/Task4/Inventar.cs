@@ -15,7 +15,7 @@ namespace Task4
 			Ankaufdatum = ankaufdatum;
 			Modell = modell;
 		}
-
+		/* Getters and Setters */
 		public int Inventarnummer
 		{
 			get
