@@ -23,7 +23,7 @@ namespace Task4
 			string output = JsonConvert.SerializeObject (inventarliste);
 
 			/* JSON in Datei schreiben */
-			string filename = @"/home/michael/FH Technikum/OOM/Mayerhofer/Inventar.json";
+			string filename = @"M:\Inventar.json";
 			if (!string.IsNullOrWhiteSpace (output)) {
 				File.Exists (filename);
 				File.WriteAllText(filename, output, Encoding.UTF8);
@@ -37,6 +37,9 @@ namespace Task4
 
 			/* Auf Console schreiben */
 			Console.WriteLine(JsonConvert.SerializeObject(inventarlisteAusDatei, Formatting.Indented));
+
+            /* T6.1 */
+            SimulateProducer.Run();
 		}
 	}
 }
