@@ -15,7 +15,11 @@ namespace Task4
     public static class PlayWithTasks
     {
         /* CPU-bound */
-        Task<integer> resultValue = Task.Run(ComputationThatTakesAReallyLongTime);
+        Task<integer> resultValue = Task.Run(() => {
+            Task.Delay(5000).Wait();
+            return 1;
+        });
+        resultValue.ContinueWith(x => ConsoleWriteLine("HTTP response is quicker than me! Value=" + x.Result));
         
         /* IO-bound */
         string url = "www.google.com";
@@ -24,37 +28,5 @@ namespace Task4
         Console.WriteLine("Program won't wait for HTTP response and stays responsive!");
         
         
-        
-        public static void Run(Inventar []inventarliste)
-        {
-            var producer = new Subject<Inventar>();
-
-            producer
-                .Where(x => x.Inventarnummer > 2000)
-                .Subscribe(x => Console.WriteLine($"Inventarnummer {x.Inventarnummer}, Modell: {x.Modell}"));
-
-            producer
-                .Where(x => x.Inventarnummer > 2000)
-                .Select(x => x.Ankaufdatum)
-                .Subscribe(x => Console.WriteLine($"Ankaufdatum: {x}\n"));
-
-            producer
-                .Skip(2)
-                .Take(1)
-                .Subscribe(x => Console.WriteLine($"Übersprungenes Inventar: {x}\n"));
-
-            foreach (var inventar in inventarliste)
-            {
-                Console.WriteLine("Warte auf Daten..");
-                System.Threading.Thread.Sleep(TimeSpan.FromSeconds(1));
-                producer.OnNext(inventar); // push value i to subscribers
-            }
-        }
     }
 }
-/*
-Experiment with asynchronous programming, e.g.
-    starting tasks using Task.Run
-    creating continuations using ContinueWith
-    using async/await
-*/
