@@ -27,6 +27,9 @@ namespace Task4
         html.ContinueWith(x => Console.WriteLine("HTTP response received: " + x.Result));
         Console.WriteLine("Program won't wait for HTTP response and stays responsive!");
         
-        
+        /* await */
+        string html = await new WebClient().DownloadStringAsync(url);
+        Console.WriteLine("HTTP response received with await: " + html);
+        Console.WriteLine("Program won't wait for HTTP response and stays responsive!");
     }
 }
