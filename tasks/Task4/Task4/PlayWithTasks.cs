@@ -14,6 +14,17 @@ namespace Task4
 {
     public static class PlayWithTasks
     {
+        /* CPU-bound */
+        Task<integer> resultValue = Task.Run(ComputationThatTakesAReallyLongTime);
+        
+        /* IO-bound */
+        string url = "www.google.com";
+        Task<string> html = new WebClient().DownloadStringAsync(url);
+        html.ContinueWith(x => Console.WriteLine("HTTP response received: " + x.Result));
+        Console.WriteLine("Program won't wait for HTTP response and stays responsive!");
+        
+        
+        
         public static void Run(Inventar []inventarliste)
         {
             var producer = new Subject<Inventar>();
