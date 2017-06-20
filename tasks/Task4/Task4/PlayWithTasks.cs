@@ -14,22 +14,24 @@ namespace Task4
 {
     public static class PlayWithTasks
     {
-        /* CPU-bound */
-        Task<integer> resultValue = Task.Run(() => {
-            Task.Delay(5000).Wait();
-            return 1;
-        });
-        resultValue.ContinueWith(x => ConsoleWriteLine("HTTP response is quicker than me! Value=" + x.Result));
-        
-        /* IO-bound */
-        string url = "www.google.com";
-        Task<string> html = new WebClient().DownloadStringAsync(url);
-        html.ContinueWith(x => Console.WriteLine("HTTP response received: " + x.Result));
-        Console.WriteLine("Program won't wait for HTTP response and stays responsive!");
-        
-        /* await */
-        string html = await new WebClient().DownloadStringAsync(url);
-        Console.WriteLine("HTTP response received with await: " + html);
-        Console.WriteLine("Program won't wait for HTTP response and stays responsive!");
+        public static void Run(Inventar[] inventarliste)
+            /* CPU-bound */
+            Task<integer> resultValue = Task.Run(() => {
+                Task.Delay(5000).Wait();
+                return 1;
+            });
+            resultValue.ContinueWith(x => ConsoleWriteLine("HTTP response is quicker than me! Value=" + x.Result));
+
+            /* IO-bound */
+            string url = "www.google.com";
+            Task<string> html = new WebClient().DownloadStringAsync(url);
+            html.ContinueWith(x => Console.WriteLine("HTTP response received: " + x.Result));
+            Console.WriteLine("Program won't wait for HTTP response and stays responsive!");
+
+            /* await */
+            string html = await new WebClient().DownloadStringAsync(url);
+            Console.WriteLine("HTTP response received with await: " + html);
+            Console.WriteLine("Program won't wait for HTTP response and stays responsive!");
+        }
     }
 }
